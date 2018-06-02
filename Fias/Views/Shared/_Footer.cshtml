@@ -1,0 +1,12 @@
+﻿@functions
+{
+string GetCurrentTime()
+{
+    return DateTime.Now.ToLongTimeString();
+}
+}
+
+<hr />
+<footer>
+    <text>@GetCurrentTime()</text>
+</footer>

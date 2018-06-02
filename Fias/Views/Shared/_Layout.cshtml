@@ -6,51 +6,18 @@
     <link href="/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/Home/Index">ФИАС</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Администрирование
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        @Html.ActionLink("Пользователи", "Index", "Admin", null, new { @class = "dropdown-item" })
-                        @Html.ActionLink("Роли", "Index", "RoleAdmin", null, new { @class = "dropdown-item" })
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                @if (@User.Identity.IsAuthenticated)
-                {
-                    <div class="nav-item navbar-brand">
-                        Hello, @User.Identity.Name!
-                    </div>
-                    <div>
-                        @Html.ActionLink("Log out", "Logout", "Account", null, new { @class = "btn btn-danger" })
-                    </div>
-                }
-                else
-                {
-                    <div>
-                        @Html.ActionLink("Sign up", "Register", "Account", null, new { @class = "btn btn-primary" })
-                    </div>
-                    <div>
-                        @Html.ActionLink("Log in", "Login", "Account", null, new { @class = "btn btn-danger" })
-                    </div>
-                }
-            </form>
-        </div>
-    </nav>
-    <div>
+<body>
+    @Html.Partial("_NavBar")
+    @Component.InvokeAsync("")
+    <div class="container body-content">
         @RenderBody()
     </div>
+
+    @Html.Partial("_Footer")
 </body>
 </html>
+
+
+
+
