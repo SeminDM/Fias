@@ -3,15 +3,22 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
     <link href="/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 </head>
 
 <body>
-    @Html.Partial("_NavBar")
+    @{
+        await Html.RenderPartialAsync("_NavBar");
+    }
     <div class="container body-content">
         @RenderBody()
     </div>
-
-    @Html.Partial("_Footer")
+    <div id="theModal" class="modal fade" style="margin: 0px auto;" tabindex="-1" role="dialog" data-url='@Url.Action("Get", "AddressObject")'>
+        <div id="theModalBody"></div>
+    </div>
+    <partial name="_Footer.cshtml" />
+    @await Html.PartialAsync("_Footer")
 </body>
 </html>

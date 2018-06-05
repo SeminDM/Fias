@@ -6,7 +6,19 @@ string GetCurrentTime()
 }
 }
 
+@{
+    var parms = new Dictionary<string, string>
+    {
+        { "str", "Current time: "},
+        {"date", GetCurrentTime()}
+    };
+}
+
 <hr />
 <footer>
-    <text>@GetCurrentTime()</text>
+    <cache expires-after="@TimeSpan.FromMinutes(1)" vary-by-user="true">@GetCurrentTime() (Sorry for caching..)</cache>
+    <environment include="development">
+        <a asp-route="Params" asp-all-route-data="parms">What's a time?</a>
+    </environment>
+    <a asp-protocol="http" asp-host="fias.nalog.ru"> Source</a>
 </footer>

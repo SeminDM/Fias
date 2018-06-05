@@ -10,50 +10,48 @@
     </div>
     <table class="table table-bordered table-hover table-striped table-sm small table-condensed">
         <thead class="thead-dark">
-            <tr>
-                <th>#</th>
-                <th>ИД</th>
-                <th>Уровень</th>
-                <th>Преффикс</th>
-                <th>Имя</th>
-                <th>Текущий статус</th>
-                <th>Код региона</th>
-                <th>Почтовый индекс</th>
-                <th>Дата обновления</th>
-            </tr>
+        <tr>
+            <th>#</th>
+            <th>ИД</th>
+            <th>Уровень</th>
+            <th>Преффикс</th>
+            <th>Имя</th>
+            <th>Текущий статус</th>
+            <th>Код региона</th>
+            <th>Почтовый индекс</th>
+            <th>Дата обновления</th>
+        </tr>
         </thead>
-
+        
         <tbody>
-            @foreach (var ao in Model.AddressObjects)
-            {
-                <tr ondblclick="showModal('#theModal', '#theModalBody', '@ao.Id')" data-objectid="@ao.Id">
-                    <td>
-                        <input id="check" type="checkbox" />
-                    </td>
-                    <td>@ao.Id</td>
-                    <td>@ao.Level</td>
-                    <td>@ao.ShortName</td>
-                    <td>@ao.FormalName</td>
-                    <td>@ao.Status</td>
-                    <td>@ao.RegionCode</td>
-                    <td>@ao.PostalCode</td>
-                    <td>
-                        @if (ao.UpdateDate.HasValue)
-                        {
-                            @Html.Raw(ao.UpdateDate.Value.ToShortDateString());
-                        }
-                        else
-                        {
-                            @:unknown
-                        }
-                    </td>
-                </tr>
-            }
+        @foreach (var ao in Model.AddressObjects)
+        {
+            <tr ondblclick="showModal('#theModal', '#theModalBody', '@ao.Id')" data-objectid="@ao.Id">
+                <td>
+                    <input id="check" type="checkbox" />
+                </td>
+                <td>@ao.Id</td>
+                <td>@ao.Level</td>
+                <td>@ao.ShortName</td>
+                <td>@ao.FormalName</td>
+                <td>@ao.Status</td>
+                <td>@ao.RegionCode</td>
+                <td>@ao.PostalCode</td>
+                <td>
+                    @if (ao.UpdateDate.HasValue)
+                    {
+                        @Html.Raw(ao.UpdateDate.Value.ToShortDateString());
+                    }
+                    else
+                    {
+                        @:unknown
+                    }
+                </td>
+            </tr>
+        }
         </tbody>
     </table>
 </div>
 
-<script src="~/Scripts/showmodal.js"></script>
-<script src="~/Scripts/deleteobjects.js"></script>
-
-
+<script src="~/scripts/showmodal.js"></script>
+<script src="~/scripts/deleteobjects.js"></script>

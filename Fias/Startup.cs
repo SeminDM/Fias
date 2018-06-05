@@ -40,7 +40,10 @@ namespace Fias
                 app.UseExceptionHandler("Home/Error");
             }
 
-            app.UseMvcWithDefaultRoute();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+            });
             app.UseStaticFiles();
             
             app.UseFileServer(new FileServerOptions()

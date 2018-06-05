@@ -1,0 +1,30 @@
+﻿
+@using DatabaseAPI.Interfaces
+@model string
+@inject IAddressObjectService AddressObjectService
+
+<h2>GetParams</h2>
+
+<h2>@Model</h2>
+
+<div>
+    <h4>Objects</h4>
+    <ul>
+        <li>Total Items: @AddressObjectService.List().Count</li>
+    </ul>
+    <table>
+        <tr>
+            <th>AOID</th>
+            <th>SHORTNAME</th>
+            <th>FORMALNAME</th>
+        </tr>
+        @foreach (var ao in @AddressObjectService.List().Take(5))
+        {
+            <tr>
+                <td>@ao.AOID</td>
+                <td>@ao.SHORTNAME</td>
+                <td>@ao.FORMALNAME</td>
+            </tr>
+        }
+    </table>
+</div>

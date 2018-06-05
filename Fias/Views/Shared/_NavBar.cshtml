@@ -1,5 +1,5 @@
 ﻿<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/Home/Index">ФИАС</a>
+    <a asp-controller="Home" asp-action="Index" class="navbar-brand">ФИАС</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -11,31 +11,25 @@
                     Администрирование
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    @Html.ActionLink("Пользователи", "Index", "Admin", null, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Роли", "Index", "RoleAdmin", null, new { @class = "dropdown-item" })
+                    <a asp-controller="Admin" asp-action="Index" class="dropdown-item">Пользователи</a>
+                    <a asp-controller="RoleAdmin" asp-action="Index" class="dropdown-item">Роли</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Something else here</a>
                 </div>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
-            @if (@User.Identity.IsAuthenticated)
+            @if (User.Identity.IsAuthenticated)
             {
                 <div class="nav-item navbar-brand">
                     Hello, @User.Identity.Name!
                 </div>
-                <div>
-                    @Html.ActionLink("Log out", "Logout", "Account", null, new { @class = "btn btn-danger" })
-                </div>
+                <a asp-controller="Account" asp-action="Logout" class="btn btn-danger">Выйти</a>
             }
             else
             {
-                <div>
-                    @Html.ActionLink("Sign up", "Register", "Account", null, new { @class = "btn btn-primary" })
-                </div>
-                <div>
-                    @Html.ActionLink("Log in", "Login", "Account", null, new { @class = "btn btn-danger" })
-                </div>
+                <a asp-controller="Account" asp-action="Register" class="btn btn-primary">Зарегистрироваться</a>
+                <a asp-controller="Account" asp-action="Login" class="btn btn-danger">Войти</a>
             }
         </form>
     </div>

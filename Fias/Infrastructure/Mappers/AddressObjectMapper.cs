@@ -16,8 +16,8 @@ namespace Fias.Infrastructure.Mappers
             {
                 AOID = source.Id.Value,
                 // ToDo: make AOGUID as Guid
-                AOGUID = source.Guid.ToString(),
-                PARENTGUID = source.ParentGuid.ToString(),
+                //AOGUID = source.Guid.ToString(),
+                //PARENTGUID = source.ParentGuid.ToString(),
                 AOLEVEL = (int)source.Level,
                 ACTSTATUS = source.Status,
                 POSTALCODE = source.PostalCode,

@@ -35,11 +35,17 @@ namespace Fias.ViewModels
 
     public enum AddressObjectLevel
     {
+        [Display(Name = "Не определен")]
         Undefined,
+        [Display(Name = "Регион")]
         Region = 1,
+        [Display(Name = "Область/Край")]
         Area = 3,
+        [Display(Name = "Город")]
         City = 4,
+        [Display(Name = "Село/Поселок/Деревня")]
         Settlement = 6,
+        [Display(Name = "Улица/Переулок")]
         Street = 7
     }
 }
