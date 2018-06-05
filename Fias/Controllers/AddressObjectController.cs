@@ -1,6 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.IO;
+using System.Linq;
 using DatabaseAPI.Interfaces;
-using DatabaseAPI.Services;
 using Fias.Infrastructure.Mappers;
 using Fias.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -27,17 +28,56 @@ namespace Fias.Controllers
             var pageingInfo = new PagingViewModel
             {
                 CurrentPage = page,
-                TotalItems = aos.Count,// _addressObjectService.List().Count,
+                TotalItems = _addressObjectService.List().Count,
                 ItemsPerPage = PAGE_SIZE
             };
 
-            var list = new ListViewModel
+            var list = new ListViewModel 
             {
                 AddressObjects = aos.Select(ao => _addressObjectMapper.Map(ao)),
                 PagingInfo = pageingInfo
             };
 
             return View(list);
+        }
+
+        [HttpGet]
+        public ActionResult Get(string id)
+        {
+            var addressObject = _addressObjectService.Get(id);
+            return PartialView("_Modal", _addressObjectMapper.Map(addressObject));
+        }
+
+        [HttpPost]
+        public ActionResult Post(AddressObjectViewModel addressObject)
+        {
+            if (!ModelState.IsValid)
+                return PartialView("_Modal", addressObject);
+
+            try
+            {
+                addressObject.UpdateDate = DateTime.Now;
+                var dto = _addressObjectMapper.Map(addressObject);
+                if (!addressObject.Id.HasValue)
+                {
+                    _addressObjectService.Create(dto);
+                }
+                else
+                {
+                    _addressObjectService.Edit(dto);
+                }
+                return Ok();
+            }
+            catch
+            {
+                return PartialView("_Modal", addressObject);
+            }
+        }
+
+        [HttpPost]
+        public void Delete([FromForm]string[] ids)
+        {
+            _addressObjectService.Delete(ids);
         }
     }
 }

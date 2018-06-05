@@ -16,7 +16,7 @@ namespace Fias.ViewModels
         [Required(ErrorMessage = "Введите сокращение для объекта")]
         public string ShortName { get; set; }
         [Display(Name = "Уровень")]
-        [Required(ErrorMessage = "Выберите уровень объекта")]
+        //[Required(ErrorMessage = "Выберите уровень объекта")]
         [Range(1, 7, ErrorMessage = "Уровень не определен")]
         public AddressObjectLevel Level { get; set; }
         [Display(Name = "Статус")]

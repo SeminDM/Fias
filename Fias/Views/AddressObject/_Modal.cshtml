@@ -1,0 +1,77 @@
+﻿@model Fias.ViewModels.AddressObjectViewModel
+
+<link href="/css/modalbody.css" rel="stylesheet" />
+<link href="/css/validation.css" rel="stylesheet" />
+
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="modal-title active" style="margin: 0px auto;">Адресообразующий объект</div>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            @using (Html.BeginForm("Post", "AddressObject", FormMethod.Post, new { id = "modalForm" }))
+            {
+                <div class="editor-label">
+                    @Html.LabelFor(x => x.FormalName)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(x => x.FormalName)
+                    @Html.ValidationMessageFor(x => x.FormalName)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(x => x.ShortName)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(x => x.ShortName)
+                    @Html.ValidationMessageFor(x => x.ShortName)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(x => x.Level)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(x => x.Level, "AddressObjectLevelTemplate")
+                    @Html.ValidationMessageFor(x => x.Level)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(x => x.Status)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(x => x.Status)
+                    @Html.ValidationMessageFor(x => x.Status)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(x => x.RegionCode)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(x => x.RegionCode)
+                    @Html.ValidationMessageFor(x => x.RegionCode)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(x => x.PostalCode)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(x => x.PostalCode)
+                    @Html.ValidationMessageFor(x => x.PostalCode)
+                </div>
+
+                <div hidden>
+                    @Html.EditorFor(x => x.Id)
+                </div>
+
+                <input type="submit" class="btn btn-primary">
+            }
+        </div>
+    </div>
+</div>
+
+<script src="/scripts/submitmodal.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
