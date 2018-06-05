@@ -4,12 +4,10 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <link href="/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-
 </head>
 
 <body>
     @Html.Partial("_NavBar")
-    @Component.InvokeAsync("")
     <div class="container body-content">
         @RenderBody()
     </div>
@@ -17,7 +15,3 @@
     @Html.Partial("_Footer")
 </body>
 </html>
-
-
-
-

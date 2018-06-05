@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Fias.ViewComponents.Shared.LogPanel
 {
-    public class LogPanelViewComponent
+    public class LogPanelViewComponent1
     {
     }
 }
