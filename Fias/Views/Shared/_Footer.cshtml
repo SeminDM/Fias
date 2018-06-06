@@ -20,5 +20,7 @@ string GetCurrentTime()
     <environment include="development">
         <a asp-route="Params" asp-all-route-data="parms">What's a time?</a>
     </environment>
-    <a asp-protocol="http" asp-host="fias.nalog.ru"> Source</a>
+    <a asp-protocol="http" asp-host="fias.nalog.ru" asp-route=""> Source</a>
+    @*@await Component.InvokeAsync("TestComponent", 3);*@
+    @*<vc:test-component top="1"></vc:test-component>*@
 </footer>
