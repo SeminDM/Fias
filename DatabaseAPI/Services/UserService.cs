@@ -20,9 +20,19 @@ namespace DatabaseAPI.Services
             _signInManager = signInManager;
         }
 
-        public async Task CreateAsync(User user)
+        public Task EditAsync(User user)
         {
-            await _userManager.CreateAsync(user);
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteAsync(string userName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<User> GetAsync(string userName)
+        {
+            return await _userManager.FindByNameAsync(userName);
         }
 
         public void Edit(User user)
@@ -40,9 +50,27 @@ namespace DatabaseAPI.Services
             throw new NotImplementedException();
         }
 
+        public async Task<IList<string>> CreateAsync(User user)
+        {
+            var result = await _userManager.CreateAsync(user);
+            if (result.Succeeded)
+            {
+                return null;
+            }
+            else
+            {
+                return result.Errors.Select(er => er.Description).ToList();
+            }
+        }
+
         public IList<User> List()
         {
             return _userManager.Users.ToList();
+        }
+
+        public Task LoginAsync(string username, string password)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -15,10 +15,10 @@ namespace Fias.Controllers
         private readonly IAddressObjectService _addressObjectService;
         private readonly AddressObjectMapper _addressObjectMapper;
 
-        public AddressObjectController(IAddressObjectService addressObjectService)
+        public AddressObjectController(IAddressObjectService addressObjectService, AddressObjectMapper addressObjectMapper)
         {
             _addressObjectService = addressObjectService;
-            _addressObjectMapper = new AddressObjectMapper();
+            _addressObjectMapper = addressObjectMapper;
         }
 
         public ActionResult List(int page = 1)

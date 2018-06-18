@@ -8,14 +8,16 @@ namespace DatabaseAPI.Interfaces
 {
     public interface IUserService
     {
-        Task CreateAsync(User user);
+        Task<IList<string>> CreateAsync(User user);
 
-        void Edit(User user);
+        Task EditAsync(User user);
 
-        void Delete(string userName);
+        Task DeleteAsync(string userName);
 
-        User Get(string userName);
+        Task<User> GetAsync(string userName);
 
         IList<User> List();
+
+        Task LoginAsync(string username, string password);
     }
 }

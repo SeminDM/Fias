@@ -11,7 +11,7 @@
                     Администрирование
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a asp-controller="Admin" asp-action="Index" class="dropdown-item">Пользователи</a>
+                    <a asp-controller="User" asp-action="List" class="dropdown-item">Пользователи</a>
                     <a asp-controller="RoleAdmin" asp-action="Index" class="dropdown-item">Роли</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Something else here</a>
@@ -28,7 +28,7 @@
             }
             else
             {
-                <a asp-controller="Account" asp-action="Register" class="btn btn-primary">Зарегистрироваться</a>
+                <a asp-controller="User" asp-action="Register" class="btn btn-primary">Зарегистрироваться</a>
                 <a asp-controller="Account" asp-action="Login" class="btn btn-danger">Войти</a>
             }
         </form>

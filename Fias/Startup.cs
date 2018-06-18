@@ -4,6 +4,7 @@ using DatabaseAPI;
 using DatabaseAPI.Interfaces;
 using DatabaseAPI.Models;
 using DatabaseAPI.Services;
+using Fias.Infrastructure.Mappers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -37,6 +38,8 @@ namespace Fias
             // add application services
             services.AddScoped<IAddressObjectService, AddressObjectService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddSingleton<AddressObjectMapper>();
+            services.AddSingleton<UserMapper>();
             // configure authentication
             services.Configure<IdentityOptions>(options =>
             {

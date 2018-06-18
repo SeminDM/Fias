@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Fias.Controllers
 {
@@ -11,12 +7,6 @@ namespace Fias.Controllers
         public IActionResult Index()
         {
             return View();
-        }
-
-        public IActionResult MakeUrl()
-        {
-            var url = Url.Action("action");
-            return Json($"This is url {url}");
         }
     }
 }
