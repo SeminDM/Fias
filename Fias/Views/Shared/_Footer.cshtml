@@ -1,26 +1,4 @@
-﻿@functions
-{
-string GetCurrentTime()
-{
-    return DateTime.Now.ToLongTimeString();
-}
-}
-
-@{
-    var parms = new Dictionary<string, string>
-    {
-        { "str", "Current time: "},
-        {"date", GetCurrentTime()}
-    };
-}
-
-<hr />
+﻿<hr />
 <footer>
-    <cache expires-after="@TimeSpan.FromMinutes(1)" vary-by-user="true">@GetCurrentTime() (Sorry for caching..)</cache>
-    <environment include="development">
-        <a asp-route="Params" asp-all-route-data="parms">What's a time?</a>
-    </environment>
     <a asp-protocol="http" asp-host="fias.nalog.ru" asp-route=""> Source</a>
-    @*@await Component.InvokeAsync("TestComponent", 3);*@
-    @*<vc:test-component top="1"></vc:test-component>*@
 </footer>

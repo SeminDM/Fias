@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using DatabaseAPI.Interfaces;
 using DatabaseAPI.Models;
@@ -20,14 +18,32 @@ namespace DatabaseAPI.Services
             _signInManager = signInManager;
         }
 
-        public Task EditAsync(User user)
+        public async Task<IList<string>> CreateAsync(User user, string password)
         {
-            throw new NotImplementedException();
+            var result = await _userManager.CreateAsync(user, password);
+            if (result.Succeeded)
+            {
+                await _signInManager.SignInAsync(user, true);
+                return null;
+            }
+            else
+            {
+                return GetErrorsFromResult(result);
+            }
         }
 
-        public Task DeleteAsync(string userName)
+        public async Task<IList<string>> DeleteAsync(string userName)
         {
-            throw new NotImplementedException();
+            var user = await _userManager.FindByNameAsync(userName);
+            var result = await _userManager.DeleteAsync(user);
+            if (result.Succeeded)
+            {
+                return null;
+            }
+            else
+            {
+                return GetErrorsFromResult(result);
+            }
         }
 
         public async Task<User> GetAsync(string userName)
@@ -35,42 +51,27 @@ namespace DatabaseAPI.Services
             return await _userManager.FindByNameAsync(userName);
         }
 
-        public void Edit(User user)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(string userName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public User Get(string userName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<IList<string>> CreateAsync(User user)
-        {
-            var result = await _userManager.CreateAsync(user);
-            if (result.Succeeded)
-            {
-                return null;
-            }
-            else
-            {
-                return result.Errors.Select(er => er.Description).ToList();
-            }
-        }
-
         public IList<User> List()
         {
             return _userManager.Users.ToList();
         }
 
-        public Task LoginAsync(string username, string password)
+        public async Task LoginAsync(string username, string password)
         {
-            throw new NotImplementedException();
+            await _signInManager.SignOutAsync();
+            var user = _userManager.FindByNameAsync(username).Result;
+            await _signInManager.SignInAsync(user, null);
+        }
+
+        public async void LoginAsync(User user)
+        {
+            await _signInManager.SignOutAsync();
+            await _signInManager.SignInAsync(user, true);
+        }
+
+        private IList<string> GetErrorsFromResult(IdentityResult result)
+        {
+            return result.Errors.Select(er => er.Description).ToList();
         }
     }
 }

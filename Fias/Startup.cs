@@ -5,6 +5,8 @@ using DatabaseAPI.Interfaces;
 using DatabaseAPI.Models;
 using DatabaseAPI.Services;
 using Fias.Infrastructure.Mappers;
+using Fias.Migrations;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -26,8 +28,7 @@ namespace Fias
 
         public void ConfigureServices(IServiceCollection services)
         {
-            // add mvc services
-            services.AddMvc(options => options.MaxModelValidationErrors = 50);
+            
             // add database context
             services.AddDbContext<FiasDatabaseContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("FiasDatabaseConnection"), b => b.MigrationsAssembly("Fias")));
@@ -40,29 +41,40 @@ namespace Fias
             services.AddScoped<IUserService, UserService>();
             services.AddSingleton<AddressObjectMapper>();
             services.AddSingleton<UserMapper>();
+
+            // add mvc services
+            services.AddMvc(options => options.MaxModelValidationErrors = 50);
             // configure authentication
             services.Configure<IdentityOptions>(options =>
             {
                 // password settings
                 options.Password.RequireDigit = false;
                 options.Password.RequiredLength = 4;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
 
                 // lockout settings
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
                 options.Lockout.MaxFailedAccessAttempts = 10;
-                options.Lockout.AllowedForNewUsers = true;
+                options.Lockout.AllowedForNewUsers = false;
 
                 // user settings
                 options.User.RequireUniqueEmail = true;
+
+                // sign in settings
+                options.SignIn.RequireConfirmedEmail = false;
+                options.SignIn.RequireConfirmedPhoneNumber = false;
             });
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
             // configue cookie
             services.ConfigureApplicationCookie(options =>
             {
                 options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
-                options.LoginPath = "/Account/Login";
-                options.AccessDeniedPath = "/Account/AccessDenied";
+                options.LoginPath = "/User/Login";
                 options.SlidingExpiration = true;
+                options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
             });
         }
 
@@ -77,6 +89,7 @@ namespace Fias
             {
                 app.UseExceptionHandler("Home/Error");
             }
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
@@ -84,8 +97,6 @@ namespace Fias
             });
 
             app.UseStaticFiles();
-
-            app.UseAuthentication();
 
             app.UseFileServer(new FileServerOptions()
             {

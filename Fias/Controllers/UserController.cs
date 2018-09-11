@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DatabaseAPI.Interfaces;
-using DatabaseAPI.Services;
 using Fias.Infrastructure.Mappers;
 using Fias.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -34,7 +32,7 @@ namespace Fias.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(UserViewModel user)
+        public async Task<IActionResult> Register(UserViewModel user, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -44,11 +42,18 @@ namespace Fias.Controllers
                     throw new ArgumentNullException(nameof(user));
                 }
 
-                var errors = await _userService.CreateAsync(u);
+                var errors = await _userService.CreateAsync(u, user.Password);
 
                 if (errors == null)
                 {
-                    return RedirectToAction("Index", "Home");
+                    if (string.IsNullOrEmpty(returnUrl))
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        return Redirect(returnUrl);
+                    }
                 }
                 else
                 {
@@ -59,6 +64,32 @@ namespace Fias.Controllers
                 }
             }
             return View(user);
+        }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            await _userService.LoginAsync(model.UserName, model.Password);
+
+            if (string.IsNullOrEmpty(returnUrl))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return Redirect(returnUrl);
+            }
         }
 
         public async Task<IActionResult> Get(string userName)
