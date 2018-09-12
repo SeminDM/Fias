@@ -63,10 +63,15 @@ namespace DatabaseAPI.Services
             await _signInManager.SignInAsync(user, null);
         }
 
-        public async void LoginAsync(User user)
+        public async Task LoginAsync(User user)
         {
             await _signInManager.SignOutAsync();
             await _signInManager.SignInAsync(user, true);
+        }
+
+        public async Task LogoutAsync()
+        {
+            await _signInManager.SignOutAsync();
         }
 
         private IList<string> GetErrorsFromResult(IdentityResult result)

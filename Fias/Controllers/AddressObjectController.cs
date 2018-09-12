@@ -4,10 +4,12 @@ using System.Linq;
 using DatabaseAPI.Interfaces;
 using Fias.Infrastructure.Mappers;
 using Fias.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fias.Controllers
 {
+    [Authorize]
     public class AddressObjectController : Controller
     {
         private const int PAGE_SIZE = 10;
@@ -56,7 +58,7 @@ namespace Fias.Controllers
 
             try
             {
-                addressObject.UpdateDate = DateTime.Now;
+                addressObject.UpdateDate = DateTime.UtcNow;
                 var dto = _addressObjectMapper.Map(addressObject);
                 if (!addressObject.Id.HasValue)
                 {

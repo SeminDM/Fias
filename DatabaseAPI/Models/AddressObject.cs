@@ -8,37 +8,37 @@ namespace DatabaseAPI.Models
     public class AddressObject
     {
         [Key]
-        public System.Guid AOID { get; set; }
-        public string AOGUID { get; set; }
-        public string FORMALNAME { get; set; }
-        public string REGIONCODE { get; set; }
-        public string AUTOCODE { get; set; }
-        public string AREACODE { get; set; }
-        public string CITYCODE { get; set; }
-        public string CTARCODE { get; set; }
-        public string PLACECODE { get; set; }
-        public string PLANCODE { get; set; }
-        public string STREETCODE { get; set; }
-        public string OFFNAME { get; set; }
-        public string POSTALCODE { get; set; }
+        public Guid Id { get; set; }
+        public Guid GUID { get; set; }
+        public string FormalName { get; set; }
+        public string RegionCode { get; set; }
+        public string AutoCode { get; set; }
+        public string AreaCode { get; set; }
+        public string CityCode { get; set; }
+        public string CtarCode { get; set; }
+        public string PlaceCode { get; set; }
+        public string PlanCode { get; set; }
+        public string StreetCode { get; set; }
+        public string OfficialName { get; set; }
+        public string PostalCode { get; set; }
         public string IFNSFL { get; set; }
         public string TERRIFNSFL { get; set; }
         public string IFNSUL { get; set; }
         public string TERRIFNSUL { get; set; }
         public string OKATO { get; set; }
         public string OKTMO { get; set; }
-        public Nullable<System.DateTime> UPDATEDATE { get; set; }
-        public string SHORTNAME { get; set; }
-        public Nullable<int> AOLEVEL { get; set; }
-        public string PARENTGUID { get; set; }
-        public string CODE { get; set; }
-        public string PLAINCODE { get; set; }
-        public Nullable<int> ACTSTATUS { get; set; }
-        public Nullable<int> CENTSTATUS { get; set; }
-        public Nullable<int> OPERSTATUS { get; set; }
-        public Nullable<int> CURRSTATUS { get; set; }
-        public Nullable<System.DateTime> STARTDATE { get; set; }
-        public Nullable<System.DateTime> ENDDATE { get; set; }
-        public Nullable<int> LIVESTATUS { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
+        public string ShortName { get; set; }
+        public Nullable<int> Level { get; set; }
+        public Guid ParentGUID { get; set; }
+        public string Code { get; set; }
+        public string PlainCode { get; set; }
+        public Nullable<int> ActualStatus { get; set; }
+        public Nullable<int> CentStatus { get; set; }
+        public Nullable<int> OperStatus { get; set; }
+        public Nullable<int> CurrStatus { get; set; }
+        public Nullable<System.DateTime> StartDate { get; set; }
+        public Nullable<System.DateTime> EndDate { get; set; }
+        public Nullable<int> LiveStatus { get; set; }
     }
 }

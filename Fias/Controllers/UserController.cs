@@ -75,7 +75,7 @@ namespace Fias.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(model);
             }
@@ -92,11 +92,24 @@ namespace Fias.Controllers
             }
         }
 
+        public async Task<ActionResult> Logout()
+        {
+            await _userService.LogoutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
         public async Task<IActionResult> Get(string userName)
         {
             var user = await _userService.GetAsync(userName);
             var u = _userMapper.Map(user);
             return View("UserDetails", u);
+        }
+
+        public async Task<ActionResult> Delete(string userName)
+        {
+            await _userService.DeleteAsync(userName);
+            var users = _userService.List().Select(u => _userMapper.Map(u));
+            return View("List", users);
         }
     }
 }

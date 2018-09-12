@@ -37,7 +37,7 @@ namespace DatabaseAPI.Services
         {
             var aos = _context.AddressObjects
                 .AsNoTracking()
-                .OrderByDescending(ao => ao.UPDATEDATE)
+                .OrderByDescending(ao => ao.UpdateDate)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize).ToList();
             return aos;
@@ -80,28 +80,28 @@ namespace DatabaseAPI.Services
 
         public void Edit(AddressObject addressObject)
         {
-            if (addressObject.AOID.Equals(Guid.Empty))
+            if (addressObject.Id.Equals(Guid.Empty))
                 throw new Exception("Id is empty.");
 
-            var ao = _context.AddressObjects.Find(addressObject.AOID);
+            var ao = _context.AddressObjects.Find(addressObject.Id);
             if (ao == null)
             {
                 throw new Exception("Can not fand address object with specified id.");
             }
-            ao.AOID = addressObject.AOID;
-            ao.ACTSTATUS = addressObject.ACTSTATUS;
-            ao.AOLEVEL = addressObject.AOLEVEL;
-            ao.FORMALNAME = addressObject.FORMALNAME;
-            ao.SHORTNAME = addressObject.SHORTNAME;
-            ao.POSTALCODE = addressObject.POSTALCODE;
-            ao.REGIONCODE = addressObject.REGIONCODE;
-            ao.UPDATEDATE = addressObject.UPDATEDATE;
+            ao.Id = addressObject.Id;
+            ao.ActualStatus = addressObject.ActualStatus;
+            ao.Level = addressObject.Level;
+            ao.FormalName = addressObject.FormalName;
+            ao.ShortName = addressObject.ShortName;
+            ao.PostalCode = addressObject.PostalCode;
+            ao.RegionCode = addressObject.RegionCode;
+            ao.UpdateDate = addressObject.UpdateDate;
             _context.SaveChanges();
         }
 
         public void Create(AddressObject addressObject)
         {
-            addressObject.AOID = Guid.NewGuid();
+            addressObject.Id = Guid.NewGuid();
             _context.AddressObjects.Add(addressObject);
             _context.SaveChanges();
         }

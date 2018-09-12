@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DatabaseAPI.Models;
-using Microsoft.AspNetCore.Identity;
 
 namespace DatabaseAPI.Interfaces
 {
@@ -19,6 +16,8 @@ namespace DatabaseAPI.Interfaces
 
         Task LoginAsync(string username, string password);
 
-        void LoginAsync(User user);
+        Task LoginAsync(User user);
+
+        Task LogoutAsync();
     }
 }
