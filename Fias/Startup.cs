@@ -5,7 +5,8 @@ using DatabaseAPI.Interfaces;
 using DatabaseAPI.Models;
 using DatabaseAPI.Services;
 using Fias.Infrastructure.Mappers;
-using Fias.Migrations;
+using Microsoft.AspNet.OData.Builder;
+using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.OData.Edm;
 
 namespace Fias
 {
@@ -41,7 +43,8 @@ namespace Fias
             services.AddScoped<IUserService, UserService>();
             services.AddSingleton<AddressObjectMapper>();
             services.AddSingleton<UserMapper>();
-
+            // add odata services
+            services.AddOData();
             // add mvc services
             services.AddMvc(options => options.MaxModelValidationErrors = 50);
             // configure authentication
@@ -94,6 +97,8 @@ namespace Fias
             app.UseMvc(routes =>
             {
                 routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                routes.Select().MaxTop(10000).Count().Expand().Filter().OrderBy();
+                routes.MapODataServiceRoute("OData", "odata", GetEdmModel());
             });
 
             app.UseStaticFiles();
@@ -104,6 +109,13 @@ namespace Fias
                 RequestPath = "/node_modules",
                 EnableDirectoryBrowsing = false
             });
+        }
+
+        private static IEdmModel GetEdmModel()
+        {
+            ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
+            builder.EntitySet<AddressObject>("AddressObjects");
+            return builder.GetEdmModel();
         }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace DatabaseAPI.Models
 {
@@ -27,18 +25,18 @@ namespace DatabaseAPI.Models
         public string TERRIFNSUL { get; set; }
         public string OKATO { get; set; }
         public string OKTMO { get; set; }
-        public Nullable<System.DateTime> UpdateDate { get; set; }
+        public DateTime? UpdateDate { get; set; }
         public string ShortName { get; set; }
-        public Nullable<int> Level { get; set; }
-        public Guid ParentGUID { get; set; }
+        public int? Level { get; set; }
+        public Guid? ParentGUID { get; set; }
         public string Code { get; set; }
         public string PlainCode { get; set; }
-        public Nullable<int> ActualStatus { get; set; }
-        public Nullable<int> CentStatus { get; set; }
-        public Nullable<int> OperStatus { get; set; }
-        public Nullable<int> CurrStatus { get; set; }
-        public Nullable<System.DateTime> StartDate { get; set; }
-        public Nullable<System.DateTime> EndDate { get; set; }
-        public Nullable<int> LiveStatus { get; set; }
+        public int? ActualStatus { get; set; }
+        public int? CentStatus { get; set; }
+        public int? OperStatus { get; set; }
+        public int? CurrStatus { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+        public int? LiveStatus { get; set; }
     }
 }
