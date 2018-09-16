@@ -30,7 +30,7 @@ namespace Fias
 
         public void ConfigureServices(IServiceCollection services)
         {
-            
+
             // add database context
             services.AddDbContext<FiasDatabaseContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("FiasDatabaseConnection"), b => b.MigrationsAssembly("Fias")));

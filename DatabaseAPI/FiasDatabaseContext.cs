@@ -1,5 +1,4 @@
 ﻿using DatabaseAPI.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,5 +11,6 @@ namespace DatabaseAPI
         {}
 
         public DbSet<AddressObject> AddressObjects { get; set; }
+        public DbSet<Developer> Developers { get; set; }
     }
 }

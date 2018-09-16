@@ -20,12 +20,13 @@ namespace Fias
             {
                 config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
                 config.AddEnvironmentVariables();
-                if(args != null)
+                if (args != null)
                 {
                     config.AddCommandLine(args);
                 }
             })
-            .ConfigureLogging((hostingContext, logging) => {
+            .ConfigureLogging((hostingContext, logging) =>
+            {
                 logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
                 logging.AddConsole();
                 logging.AddDebug();

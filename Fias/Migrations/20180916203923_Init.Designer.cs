@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fias.Migrations
 {
     [DbContext(typeof(FiasDatabaseContext))]
-    [Migration("20180608070630_IdentitySchema")]
-    partial class IdentitySchema
+    [Migration("20180916203923_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,74 +23,150 @@ namespace Fias.Migrations
 
             modelBuilder.Entity("DatabaseAPI.Models.AddressObject", b =>
                 {
-                    b.Property<Guid>("AOID")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("ACTSTATUS");
+                    b.Property<int?>("ActualStatus");
 
-                    b.Property<string>("AOGUID");
+                    b.Property<string>("AreaCode");
 
-                    b.Property<int?>("AOLEVEL");
+                    b.Property<string>("AutoCode");
 
-                    b.Property<string>("AREACODE");
+                    b.Property<int?>("CentStatus");
 
-                    b.Property<string>("AUTOCODE");
+                    b.Property<string>("CityCode");
 
-                    b.Property<int?>("CENTSTATUS");
+                    b.Property<string>("Code");
 
-                    b.Property<string>("CITYCODE");
+                    b.Property<string>("CtarCode");
 
-                    b.Property<string>("CODE");
+                    b.Property<int?>("CurrStatus");
 
-                    b.Property<string>("CTARCODE");
+                    b.Property<DateTime?>("EndDate");
 
-                    b.Property<int?>("CURRSTATUS");
+                    b.Property<string>("FormalName");
 
-                    b.Property<DateTime?>("ENDDATE");
-
-                    b.Property<string>("FORMALNAME");
+                    b.Property<Guid>("GUID");
 
                     b.Property<string>("IFNSFL");
 
                     b.Property<string>("IFNSUL");
 
-                    b.Property<int?>("LIVESTATUS");
+                    b.Property<int?>("Level");
 
-                    b.Property<string>("OFFNAME");
+                    b.Property<int?>("LiveStatus");
 
                     b.Property<string>("OKATO");
 
                     b.Property<string>("OKTMO");
 
-                    b.Property<int?>("OPERSTATUS");
+                    b.Property<string>("OfficialName");
 
-                    b.Property<string>("PARENTGUID");
+                    b.Property<int?>("OperStatus");
 
-                    b.Property<string>("PLACECODE");
+                    b.Property<Guid?>("ParentGUID");
 
-                    b.Property<string>("PLAINCODE");
+                    b.Property<string>("PlaceCode");
 
-                    b.Property<string>("PLANCODE");
+                    b.Property<string>("PlainCode");
 
-                    b.Property<string>("POSTALCODE");
+                    b.Property<string>("PlanCode");
 
-                    b.Property<string>("REGIONCODE");
+                    b.Property<string>("PostalCode");
 
-                    b.Property<string>("SHORTNAME");
+                    b.Property<string>("RegionCode");
 
-                    b.Property<DateTime?>("STARTDATE");
+                    b.Property<string>("ShortName");
 
-                    b.Property<string>("STREETCODE");
+                    b.Property<DateTime?>("StartDate");
+
+                    b.Property<string>("StreetCode");
 
                     b.Property<string>("TERRIFNSFL");
 
                     b.Property<string>("TERRIFNSUL");
 
-                    b.Property<DateTime?>("UPDATEDATE");
+                    b.Property<DateTime?>("UpdateDate");
 
-                    b.HasKey("AOID");
+                    b.HasKey("Id");
 
                     b.ToTable("AddressObjects");
+                });
+
+            modelBuilder.Entity("DatabaseAPI.Models.Developer", b =>
+                {
+                    b.Property<int>("Id");
+
+                    b.Property<byte?>("Age")
+                        .HasColumnType("tinyint");
+
+                    b.Property<byte[]>("Avatar")
+                        .HasColumnType("image");
+
+                    b.Property<DateTimeOffset?>("BirthDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("GraduationDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<bool?>("IsBackendDeveloper")
+                        .HasColumnType("bit");
+
+                    b.Property<byte[]>("RowVersion")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnName("timestamp");
+
+                    b.Property<decimal?>("Salary")
+                        .HasColumnType("money");
+
+                    b.Property<int?>("TeamLeadId");
+
+                    b.Property<int?>("TeamMateId");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<TimeSpan?>("WakeTime")
+                        .HasColumnType("time");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeamLeadId");
+
+                    b.HasIndex("TeamMateId");
+
+                    b.ToTable("Developers");
+                });
+
+            modelBuilder.Entity("DatabaseAPI.Models.Role", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles");
                 });
 
             modelBuilder.Entity("DatabaseAPI.Models.User", b =>
@@ -146,30 +222,6 @@ namespace Fias.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken();
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
-
-                    b.ToTable("AspNetRoles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -258,9 +310,20 @@ namespace Fias.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("DatabaseAPI.Models.Developer", b =>
+                {
+                    b.HasOne("DatabaseAPI.Models.Developer", "TeamLead")
+                        .WithMany()
+                        .HasForeignKey("TeamLeadId");
+
+                    b.HasOne("DatabaseAPI.Models.Developer")
+                        .WithMany("TeamMates")
+                        .HasForeignKey("TeamMateId");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
+                    b.HasOne("DatabaseAPI.Models.Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -284,7 +347,7 @@ namespace Fias.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
+                    b.HasOne("DatabaseAPI.Models.Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);

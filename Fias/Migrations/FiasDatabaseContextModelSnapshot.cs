@@ -91,6 +91,58 @@ namespace Fias.Migrations
                     b.ToTable("AddressObjects");
                 });
 
+            modelBuilder.Entity("DatabaseAPI.Models.Developer", b =>
+                {
+                    b.Property<int>("Id");
+
+                    b.Property<byte?>("Age")
+                        .HasColumnType("tinyint");
+
+                    b.Property<byte[]>("Avatar")
+                        .HasColumnType("image");
+
+                    b.Property<DateTimeOffset?>("BirthDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("GraduationDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<bool?>("IsBackendDeveloper")
+                        .HasColumnType("bit");
+
+                    b.Property<byte[]>("RowVersion")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnName("timestamp");
+
+                    b.Property<decimal?>("Salary")
+                        .HasColumnType("money");
+
+                    b.Property<int?>("TeamLeadId");
+
+                    b.Property<int?>("TeamMateId");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<TimeSpan?>("WakeTime")
+                        .HasColumnType("time");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeamLeadId");
+
+                    b.HasIndex("TeamMateId");
+
+                    b.ToTable("Developers");
+                });
+
             modelBuilder.Entity("DatabaseAPI.Models.Role", b =>
                 {
                     b.Property<string>("Id")
@@ -254,6 +306,17 @@ namespace Fias.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("DatabaseAPI.Models.Developer", b =>
+                {
+                    b.HasOne("DatabaseAPI.Models.Developer", "TeamLead")
+                        .WithMany()
+                        .HasForeignKey("TeamLeadId");
+
+                    b.HasOne("DatabaseAPI.Models.Developer")
+                        .WithMany("TeamMates")
+                        .HasForeignKey("TeamMateId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

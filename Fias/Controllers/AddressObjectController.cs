@@ -34,7 +34,7 @@ namespace Fias.Controllers
                 ItemsPerPage = PAGE_SIZE
             };
 
-            var list = new ListViewModel 
+            var list = new ListViewModel
             {
                 AddressObjects = aos.Select(ao => _addressObjectMapper.Map(ao)),
                 PagingInfo = pageingInfo

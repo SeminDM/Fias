@@ -4,10 +4,52 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Fias.Migrations
 {
-    public partial class IdentitySchema : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "AddressObjects",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    GUID = table.Column<Guid>(nullable: false),
+                    FormalName = table.Column<string>(nullable: true),
+                    RegionCode = table.Column<string>(nullable: true),
+                    AutoCode = table.Column<string>(nullable: true),
+                    AreaCode = table.Column<string>(nullable: true),
+                    CityCode = table.Column<string>(nullable: true),
+                    CtarCode = table.Column<string>(nullable: true),
+                    PlaceCode = table.Column<string>(nullable: true),
+                    PlanCode = table.Column<string>(nullable: true),
+                    StreetCode = table.Column<string>(nullable: true),
+                    OfficialName = table.Column<string>(nullable: true),
+                    PostalCode = table.Column<string>(nullable: true),
+                    IFNSFL = table.Column<string>(nullable: true),
+                    TERRIFNSFL = table.Column<string>(nullable: true),
+                    IFNSUL = table.Column<string>(nullable: true),
+                    TERRIFNSUL = table.Column<string>(nullable: true),
+                    OKATO = table.Column<string>(nullable: true),
+                    OKTMO = table.Column<string>(nullable: true),
+                    UpdateDate = table.Column<DateTime>(nullable: true),
+                    ShortName = table.Column<string>(nullable: true),
+                    Level = table.Column<int>(nullable: true),
+                    ParentGUID = table.Column<Guid>(nullable: true),
+                    Code = table.Column<string>(nullable: true),
+                    PlainCode = table.Column<string>(nullable: true),
+                    ActualStatus = table.Column<int>(nullable: true),
+                    CentStatus = table.Column<int>(nullable: true),
+                    OperStatus = table.Column<int>(nullable: true),
+                    CurrStatus = table.Column<int>(nullable: true),
+                    StartDate = table.Column<DateTime>(nullable: true),
+                    EndDate = table.Column<DateTime>(nullable: true),
+                    LiveStatus = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AddressObjects", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -47,6 +89,42 @@ namespace Fias.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Developers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false),
+                    Age = table.Column<byte>(type: "tinyint", nullable: true),
+                    UserName = table.Column<string>(type: "varchar(20)", nullable: false),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BirthDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    GraduationDate = table.Column<DateTime>(type: "datetime", nullable: true),
+                    WakeTime = table.Column<TimeSpan>(type: "time", nullable: true),
+                    IsBackendDeveloper = table.Column<bool>(type: "bit", nullable: true),
+                    Salary = table.Column<decimal>(type: "money", nullable: true),
+                    Avatar = table.Column<byte[]>(type: "image", nullable: true),
+                    TeamLeadId = table.Column<int>(nullable: true),
+                    timestamp = table.Column<byte[]>(nullable: true),
+                    TeamMateId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Developers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Developers_Developers_TeamLeadId",
+                        column: x => x.TeamLeadId,
+                        principalTable: "Developers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Developers_Developers_TeamMateId",
+                        column: x => x.TeamMateId,
+                        principalTable: "Developers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -193,10 +271,23 @@ namespace Fias.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Developers_TeamLeadId",
+                table: "Developers",
+                column: "TeamLeadId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Developers_TeamMateId",
+                table: "Developers",
+                column: "TeamMateId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "AddressObjects");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -211,6 +302,9 @@ namespace Fias.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Developers");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
