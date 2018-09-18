@@ -52,8 +52,8 @@ namespace DatabaseAPI.Models
         [ForeignKey("TeamLeadId")]
         public Developer TeamLead { get; set; }
 
-        [Column("timestamp")]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [NotMapped]
+        [Column(TypeName = "timestamp")]
         public byte[] RowVersion { get; set; }
     }
 }

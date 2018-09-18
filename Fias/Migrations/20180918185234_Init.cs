@@ -107,7 +107,7 @@ namespace Fias.Migrations
                     Salary = table.Column<decimal>(type: "money", nullable: true),
                     Avatar = table.Column<byte[]>(type: "image", nullable: true),
                     TeamLeadId = table.Column<int>(nullable: true),
-                    timestamp = table.Column<byte[]>(nullable: true),
+                    RowVersion = table.Column<byte[]>(type: "timestamp", nullable: true),
                     TeamMateId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>

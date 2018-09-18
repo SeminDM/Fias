@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fias.Migrations
 {
     [DbContext(typeof(FiasDatabaseContext))]
-    [Migration("20180916203923_Init")]
+    [Migration("20180918185234_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.0-rtm-30799")
+                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -119,8 +119,7 @@ namespace Fias.Migrations
                         .HasColumnType("bit");
 
                     b.Property<byte[]>("RowVersion")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnName("timestamp");
+                        .HasColumnType("timestamp");
 
                     b.Property<decimal?>("Salary")
                         .HasColumnType("money");

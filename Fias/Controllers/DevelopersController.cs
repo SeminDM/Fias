@@ -54,7 +54,7 @@ namespace Fias.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Age,UserName,FullName,Email,BirthDate,GraduationDate,WakeTime,IsBackendDeveloper,Salary,Avatar,RowVersion")] Developer developer)
+        public async Task<IActionResult> Create(Developer developer)
         {
             if (ModelState.IsValid)
             {
