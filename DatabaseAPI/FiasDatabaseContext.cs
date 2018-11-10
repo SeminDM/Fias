@@ -11,6 +11,7 @@ namespace DatabaseAPI
         {}
 
         public DbSet<AddressObject> AddressObjects { get; set; }
+        public DbSet<House> Houses { get; set; }
         public DbSet<Developer> Developers { get; set; }
     }
 }

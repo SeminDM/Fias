@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Server.IISIntegration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,7 +28,7 @@ namespace Fias
         }
 
         public IConfiguration Configuration { get; }
-
+        
         public void ConfigureServices(IServiceCollection services)
         {
 
@@ -69,7 +70,9 @@ namespace Fias
                 options.SignIn.RequireConfirmedEmail = false;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
             });
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
+            var authType = Configuration.GetSection("Authentication");
+            services.AddAuthentication(authType.Value == "Windows" ? IISDefaults.AuthenticationScheme : CookieAuthenticationDefaults.AuthenticationScheme);
+
             // configue cookie
             services.ConfigureApplicationCookie(options =>
             {

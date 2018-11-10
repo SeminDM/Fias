@@ -4,6 +4,14 @@
 [Int32]$global:batchSize = 100000;
 
 Function Add-FileRow() {
+    # filter out-date entries
+    [int]$liveStatus = $global:xmlReader.GetAttribute("LIVESTATUS");
+    $now = Get-Date;
+    if($liveStatus -lt 1)
+    {
+        return;
+    }
+
     $newRow = $dt.NewRow();
     $null = $dt.Rows.Add($newRow);
     $parentGuid = $global:xmlReader.GetAttribute("PARENTGUID");
@@ -38,7 +46,7 @@ Function Add-FileRow() {
     $newRow["CurrStatus"] = $global:xmlReader.GetAttribute("CURRSTATUS");
     $newRow["StartDate"] = $global:xmlReader.GetAttribute("STARTDATE");
     $newRow["EndDate"] = $global:xmlReader.GetAttribute("ENDDATE");
-    $newRow["LiveStatus"] = $global:xmlReader.GetAttribute("LIVESTATUS");
+    $newRow["LiveStatus"] = $liveStatus;
 }
 
 try
@@ -52,7 +60,7 @@ try
 
     $recordCount = 0;
     
-    while($xmlReader.Read() -eq $true -and ($recordCount -lt 10))
+    while($xmlReader.Read() -eq $true)
     {
 
         if(($xmlReader.NodeType -eq [System.Xml.XmlNodeType]::Element) -and ($xmlReader.Name -eq "Object"))

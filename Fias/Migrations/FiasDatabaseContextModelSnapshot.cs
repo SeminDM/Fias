@@ -93,9 +93,7 @@ namespace Fias.Migrations
 
             modelBuilder.Entity("DatabaseAPI.Models.Developer", b =>
                 {
-                    b.Property<int?>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("Id");
 
                     b.Property<byte?>("Age")
                         .HasColumnType("tinyint");
@@ -118,6 +116,9 @@ namespace Fias.Migrations
                     b.Property<bool?>("IsBackendDeveloper")
                         .HasColumnType("bit");
 
+                    b.Property<byte[]>("RowVersion")
+                        .HasColumnType("timestamp");
+
                     b.Property<decimal?>("Salary")
                         .HasColumnType("money");
 
@@ -139,6 +140,60 @@ namespace Fias.Migrations
                     b.HasIndex("TeamMateId");
 
                     b.ToTable("Developers");
+                });
+
+            modelBuilder.Entity("DatabaseAPI.Models.House", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("AddressObjectId");
+
+                    b.Property<string>("BuildingNumber");
+
+                    b.Property<string>("CadNumber");
+
+                    b.Property<int?>("Counter");
+
+                    b.Property<DateTime?>("CreationDate");
+
+                    b.Property<DateTime?>("EndDate");
+
+                    b.Property<int?>("EstStatus");
+
+                    b.Property<Guid>("GUID");
+
+                    b.Property<string>("HouseNumber");
+
+                    b.Property<string>("IFNSFL");
+
+                    b.Property<string>("IFNSUL");
+
+                    b.Property<string>("OKATO");
+
+                    b.Property<string>("OKTMO");
+
+                    b.Property<string>("PostalCode");
+
+                    b.Property<string>("RegionCode");
+
+                    b.Property<DateTime?>("StartDate");
+
+                    b.Property<int?>("StatStatus");
+
+                    b.Property<int?>("StrStatus");
+
+                    b.Property<string>("StructureNumber");
+
+                    b.Property<string>("TERRIFNSFL");
+
+                    b.Property<string>("TERRIFNSUL");
+
+                    b.Property<DateTime?>("UpdateDate");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Houses");
                 });
 
             modelBuilder.Entity("DatabaseAPI.Models.Role", b =>

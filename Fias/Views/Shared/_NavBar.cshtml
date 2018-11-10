@@ -25,7 +25,7 @@
         <form class="form-inline my-2 my-lg-0">
             @if (User.Identity.IsAuthenticated)
             {
-                var name = UserService.GetAsync(User.Identity.Name).Result.Name ?? User.Identity.Name;
+                var name = UserService.GetAsync(User.Identity.Name)?.Result?.Name ?? User.Identity.Name;
                 <div class="nav-item navbar-brand">
                     Привет, @name!
                 </div>

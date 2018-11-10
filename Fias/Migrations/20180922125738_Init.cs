@@ -128,6 +128,39 @@ namespace Fias.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Houses",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    AddressObjectId = table.Column<Guid>(nullable: false),
+                    GUID = table.Column<Guid>(nullable: false),
+                    PostalCode = table.Column<string>(nullable: true),
+                    RegionCode = table.Column<string>(nullable: true),
+                    IFNSFL = table.Column<string>(nullable: true),
+                    TERRIFNSFL = table.Column<string>(nullable: true),
+                    IFNSUL = table.Column<string>(nullable: true),
+                    TERRIFNSUL = table.Column<string>(nullable: true),
+                    OKATO = table.Column<string>(nullable: true),
+                    OKTMO = table.Column<string>(nullable: true),
+                    UpdateDate = table.Column<DateTime>(nullable: true),
+                    HouseNumber = table.Column<string>(nullable: true),
+                    EstStatus = table.Column<int>(nullable: true),
+                    BuildingNumber = table.Column<string>(nullable: true),
+                    StructureNumber = table.Column<string>(nullable: true),
+                    StrStatus = table.Column<int>(nullable: true),
+                    StartDate = table.Column<DateTime>(nullable: true),
+                    EndDate = table.Column<DateTime>(nullable: true),
+                    StatStatus = table.Column<int>(nullable: true),
+                    Counter = table.Column<int>(nullable: true),
+                    CadNumber = table.Column<string>(nullable: true),
+                    CreationDate = table.Column<DateTime>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Houses", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -305,6 +338,9 @@ namespace Fias.Migrations
 
             migrationBuilder.DropTable(
                 name: "Developers");
+
+            migrationBuilder.DropTable(
+                name: "Houses");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

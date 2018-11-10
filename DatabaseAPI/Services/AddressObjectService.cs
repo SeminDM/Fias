@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using DatabaseAPI.Interfaces;
 using DatabaseAPI.Models;
@@ -30,6 +31,10 @@ namespace DatabaseAPI.Services
 
         public IList<AddressObject> List()
         {
+            // example of stored procedures use
+            SqlParameter param1 = new SqlParameter("@addressObjectId", "EEC1C98F-8A29-410B-B6B7-8C96B63670ED");
+            var employee = _context.AddressObjects.FromSql("spFindMainParentAddressObject @addressObjectId", param1);
+
             return _context.AddressObjects.AsNoTracking().ToList();
         }
 

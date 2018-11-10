@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fias.Migrations
 {
     [DbContext(typeof(FiasDatabaseContext))]
-    [Migration("20180918185234_Init")]
+    [Migration("20180922125738_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -142,6 +142,60 @@ namespace Fias.Migrations
                     b.HasIndex("TeamMateId");
 
                     b.ToTable("Developers");
+                });
+
+            modelBuilder.Entity("DatabaseAPI.Models.House", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("AddressObjectId");
+
+                    b.Property<string>("BuildingNumber");
+
+                    b.Property<string>("CadNumber");
+
+                    b.Property<int?>("Counter");
+
+                    b.Property<DateTime?>("CreationDate");
+
+                    b.Property<DateTime?>("EndDate");
+
+                    b.Property<int?>("EstStatus");
+
+                    b.Property<Guid>("GUID");
+
+                    b.Property<string>("HouseNumber");
+
+                    b.Property<string>("IFNSFL");
+
+                    b.Property<string>("IFNSUL");
+
+                    b.Property<string>("OKATO");
+
+                    b.Property<string>("OKTMO");
+
+                    b.Property<string>("PostalCode");
+
+                    b.Property<string>("RegionCode");
+
+                    b.Property<DateTime?>("StartDate");
+
+                    b.Property<int?>("StatStatus");
+
+                    b.Property<int?>("StrStatus");
+
+                    b.Property<string>("StructureNumber");
+
+                    b.Property<string>("TERRIFNSFL");
+
+                    b.Property<string>("TERRIFNSUL");
+
+                    b.Property<DateTime?>("UpdateDate");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Houses");
                 });
 
             modelBuilder.Entity("DatabaseAPI.Models.Role", b =>
