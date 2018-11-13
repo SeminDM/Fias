@@ -7,6 +7,7 @@ namespace DatabaseAPI.Models
     public class AddressObject
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; set; }
         public Guid GUID { get; set; }
         public string FormalName { get; set; }

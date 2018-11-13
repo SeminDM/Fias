@@ -82,6 +82,8 @@ namespace Fias
                 options.SlidingExpiration = true;
                 options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
             });
+
+            // ToDo: ensure database created
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -118,6 +120,9 @@ namespace Fias
         {
             ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
             builder.EntitySet<AddressObject>("AddressObjects");
+            builder.EntitySet<House>("Houses");
+            var dev = builder.EntitySet<Developer>("Developers").EntityType;
+            dev.Property(d => d.GraduationDate).AsDate();
             return builder.GetEdmModel();
         }
     }

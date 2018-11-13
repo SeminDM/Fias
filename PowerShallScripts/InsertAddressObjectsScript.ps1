@@ -1,6 +1,6 @@
-﻿[String]$global:connectionString = "Data Source=ds;Initial Catalog=FiasDatabaseCore;Integrated Security=SSPI;";
+﻿[String]$global:connectionString = "Data Source=semin-pc\SQLEXPRESS;Initial Catalog=FiasDatabaseCore;Integrated Security=SSPI;";
 [System.Data.DataTable]$global:dt = New-Object System.Data.DataTable;
-[System.Xml.XmlTextReader]$global:xmlReader = New-Object System.Xml.XmlTextReader("E:\FIAS\fias_xml\AS_ADDROBJ_20180303_d91ba69a-52a1-4b29-bd4b-498587d55398.xml");
+[System.Xml.XmlTextReader]$global:xmlReader = New-Object System.Xml.XmlTextReader("D:\FIAS\XML\fias_xml\AS_ADDROBJ_20171126_922d2e73-a81d-4055-b8e8-3855a898f360.XML");
 [Int32]$global:batchSize = 100000;
 
 Function Add-FileRow() {
@@ -60,7 +60,7 @@ try
 
     $recordCount = 0;
     
-    while($xmlReader.Read() -eq $true)
+    while($xmlReader.Read() -eq $true -and $recordCount -lt 100)
     {
 
         if(($xmlReader.NodeType -eq [System.Xml.XmlNodeType]::Element) -and ($xmlReader.Name -eq "Object"))

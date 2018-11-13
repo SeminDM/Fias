@@ -4,14 +4,16 @@ using DatabaseAPI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Fias.Migrations
 {
     [DbContext(typeof(FiasDatabaseContext))]
-    partial class FiasDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20181113080823_InitialOnNewMachine")]
+    partial class InitialOnNewMachine
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,7 +23,8 @@ namespace Fias.Migrations
 
             modelBuilder.Entity("DatabaseAPI.Models.AddressObject", b =>
                 {
-                    b.Property<Guid>("Id");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int?>("ActualStatus");
 

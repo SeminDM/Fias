@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DatabaseAPI.Interfaces;
+﻿using DatabaseAPI.Interfaces;
 using DatabaseAPI.Models;
 using Fias.Infrastructure.Mappers;
 using Microsoft.AspNet.OData;
