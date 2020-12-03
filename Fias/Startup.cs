@@ -17,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.OData.Edm;
+using Microsoft.OData.Edm.Csdl;
 
 namespace Fias
 {
@@ -103,7 +104,7 @@ namespace Fias
             {
                 routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
                 routes.Select().MaxTop(10000).Count().Expand().Filter().OrderBy();
-                routes.MapODataServiceRoute("OData", "odata", GetEdmModel());
+                routes.MapODataServiceRoute("OData", "odata.svc", GetEdmModel());
             });
 
             app.UseStaticFiles();

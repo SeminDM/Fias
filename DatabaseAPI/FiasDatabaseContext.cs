@@ -8,7 +8,11 @@ namespace DatabaseAPI
     {
         public FiasDatabaseContext(DbContextOptions<FiasDatabaseContext> options)
         :base(options)
-        {}
+        {
+            var a = new DataInitializer();
+            a.Go();
+
+        }
 
         public DbSet<AddressObject> AddressObjects { get; set; }
         public DbSet<House> Houses { get; set; }
